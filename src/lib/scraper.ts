@@ -12,6 +12,7 @@ export async function scrapePost(url: string): Promise<string> {
       args: isDev
         ? ["--no-sandbox", "--disable-setuid-sandbox"]
         : chromium.args,
+      timeout: 60_000,
       executablePath: isDev
         ? process.env.CHROME_EXECUTABLE_PATH
         : await chromium.executablePath(),

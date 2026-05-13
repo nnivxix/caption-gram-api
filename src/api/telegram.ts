@@ -1,9 +1,8 @@
 import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
 import { sendTelegramMessage } from "../lib/telegram";
-import type { Bindings } from "../bindings";
 
-const telegram = new Hono<{ Bindings: Bindings }>();
+const telegram = new Hono();
 
 telegram.post("/notify", async (c) => {
   const { chatId, caption, url } = await c.req.json<{
@@ -12,7 +11,7 @@ telegram.post("/notify", async (c) => {
     url: string;
   }>();
 
-  const token = c.env.TELEGRAM_BOT_TOKEN;
+  const token = process.env.TELEGRAM_BOT_TOKEN;
 
   if (!token) {
     throw new HTTPException(500, {
@@ -55,7 +54,7 @@ ${escapeMarkdown(caption)}
 telegram.post("/validate", async (c) => {
   const { chatId } = await c.req.json<{ chatId: string }>();
 
-  const token = c.env.TELEGRAM_BOT_TOKEN;
+  const token = process.env.TELEGRAM_BOT_TOKEN;
 
   if (!token) {
     throw new HTTPException(500, {
