@@ -2,7 +2,7 @@
 
 set -Eeuo pipefail
 
-PROCESS_NAME="captiom-gram-api"
+PROCESS_NAME="caption-gram-api"
 ENTRYPOINT="dist/src/index.js"
 START_TIME="$(date +%s)"
 STEP=0
