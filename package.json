@@ -8,9 +8,8 @@
   },
   "dependencies": {
     "@hono/node-server": "^2.0.2",
-    "@sparticuz/chromium": "^148.0.0",
     "hono": "^4.12.18",
-    "puppeteer-core": "^24.43.1"
+    "puppeteer": "^25.0.3"
   },
   "devDependencies": {
     "@types/node": "^25.7.0",

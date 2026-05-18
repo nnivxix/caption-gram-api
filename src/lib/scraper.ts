@@ -1,26 +1,11 @@
-import puppeteer from "puppeteer-core";
-import chromium from "@sparticuz/chromium";
+import { getBrowser } from "./browser.js";
 import { HTTPException } from "hono/http-exception";
 
 export async function scrapePost(url: string): Promise<string> {
-  let browser;
+  const browser = await getBrowser();
+  const page = await browser.newPage();
 
   try {
-    const isDev = process.env.NODE_ENV === "development";
-
-    browser = await puppeteer.launch({
-      args: isDev
-        ? ["--no-sandbox", "--disable-setuid-sandbox"]
-        : chromium.args,
-      timeout: 60_000,
-      executablePath: isDev
-        ? process.env.CHROME_EXECUTABLE_PATH
-        : await chromium.executablePath(),
-      headless: true,
-    });
-
-    const page = await browser.newPage();
-
     await page.setUserAgent({
       userAgent:
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
@@ -46,6 +31,6 @@ export async function scrapePost(url: string): Promise<string> {
       message: error instanceof Error ? error.message : "Failed to scrape post",
     });
   } finally {
-    await browser?.close();
+    await page.close();
   }
 }

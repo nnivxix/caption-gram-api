@@ -20,6 +20,21 @@ app.get("/", (c) => {
   });
 });
 
+app.get("/debug/memory", (c) => {
+  if (process.env.NODE_ENV !== "development") {
+    return c.json(
+      { error: "Memory usage info is only available in development mode" },
+      403,
+    );
+  }
+  const mem = process.memoryUsage();
+  return c.json({
+    heapUsed: `${(mem.heapUsed / 1024 / 1024).toFixed(2)} MB`,
+    heapTotal: `${(mem.heapTotal / 1024 / 1024).toFixed(2)} MB`,
+    rss: `${(mem.rss / 1024 / 1024).toFixed(2)} MB`,
+  });
+});
+
 app.route("/api/ig", captions);
 app.route("/api/telegram", telegram);
 
