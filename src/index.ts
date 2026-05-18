@@ -26,7 +26,7 @@ app.route("/api/telegram", telegram);
 serve(
   {
     fetch: app.fetch,
-    port: 8000,
+    port: Number(process.env.PORT) || 8000,
   },
   (info) => {
     console.log(`Server running at http://localhost:${info.port}`);
