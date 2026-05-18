@@ -39,8 +39,8 @@ ${escapeMarkdown(caption)}
   `.trim();
 
   try {
-    const data = await sendTelegramMessage(token, chatId, message);
-    return c.json({ success: true, data });
+    await sendTelegramMessage(token, chatId, message);
+    return c.json({ success: true, message: "Caption sent successfully!" });
   } catch (error) {
     throw new HTTPException(500, {
       message:
@@ -76,8 +76,11 @@ You will now receive caption notifications here.
   `.trim();
 
   try {
-    const data = await sendTelegramMessage(token, chatId, message);
-    return c.json({ success: true, chatId, data });
+    await sendTelegramMessage(token, chatId, message);
+    return c.json({
+      success: true,
+      message: "Chat ID validated successfully!",
+    });
   } catch (error) {
     throw new HTTPException(400, {
       message: "Invalid Chat ID. Please check and try again.",
