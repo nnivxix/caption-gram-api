@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
-import { sendTelegramMessage } from "../lib/telegram";
+import { sendTelegramMessage } from "../lib/telegram.js";
 
 const telegram = new Hono();
 

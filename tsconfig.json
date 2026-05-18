@@ -1,14 +1,16 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "strict": true,
     "skipLibCheck": true,
     "lib": [
       "ESNext",
       "DOM"
     ],
+    "outDir": "dist",
+    "rootDir": ".",
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx"
   },

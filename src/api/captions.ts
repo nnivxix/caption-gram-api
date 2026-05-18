@@ -1,8 +1,8 @@
 import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
-import { normalizeUrl, validateUrl } from "../lib/validation";
-import { scrapePost } from "../lib/scraper";
-import { sendTelegramMessage } from "../lib/telegram";
+import { normalizeUrl, validateUrl } from "../lib/validation.js";
+import { scrapePost } from "../lib/scraper.js";
+import { sendTelegramMessage } from "../lib/telegram.js";
 
 const captions = new Hono();
 
