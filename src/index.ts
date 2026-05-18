@@ -9,7 +9,7 @@ const app = new Hono();
 app.use(
   "*",
   cors({
-    origin: ["http://localhost:3000", "https://captiom-gram.vercel.app"],
+    origin: process.env.CORS_ORIGIN?.split(",") || [],
   }),
 );
 
