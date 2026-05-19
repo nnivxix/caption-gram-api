@@ -52,7 +52,7 @@ ${escapeMarkdown(caption)}
 });
 
 function escapeMarkdown(text: string): string {
-  return text.replace(/[_*()~`>#+=|{}]/g, "\\$&");
+  return text.replace(/[_*()~`>+=|{}]/g, "\\$&");
 }
 
 export default captions;

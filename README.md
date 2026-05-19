@@ -1,21 +1,37 @@
-```txt
-npm install
-npm run dev
+# Caption Gram API
+
+Caption Gram API is a powerful tool that generates descriptive post captions.
+
+
+## Installation
+
+1. Clone the repository:
+
+```bash
+git clone <repository-url>
 ```
 
-```txt
-npm run deploy
+2. Install puppeteer:
+Make sure you have installed puppeteer. You can install puppeteer using npm:
+
+```bash
+npx puppeteer browsers install chrome
+```
+3. Install dependencies:
+
+```bash
+pnpm install
 ```
 
-[For generating/synchronizing types based on your Worker configuration run](https://developers.cloudflare.com/workers/wrangler/commands/#types):
+1. Copy the env file
 
-```txt
-npm run cf-typegen
+```bash
+cp .env.example .env
 ```
 
-Pass the `CloudflareBindings` as generics when instantiation `Hono`:
+## Links
 
-```ts
-// src/index.ts
-const app = new Hono<{ Bindings: CloudflareBindings }>()
-```
+- [Caption Gram Repository](https://github.com/nnivxix/caption-gram)
+- [Caption Gram Telegram Bot Repository](https://github.com/nnivxix/caption-gram-tele-bot)
+- [Caption Gram Website](https://caption-gram.vercel.app)
+- [Caption Gram Telegram Bot](https://t.me/caption_gram_bot)
