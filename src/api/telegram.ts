@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
 import { sendTelegramMessage } from "../lib/telegram.js";
+import str from "../helpers/str.js";
 
 const telegram = new Hono();
 
@@ -23,20 +24,10 @@ telegram.post("/notify", async (c) => {
     throw new HTTPException(400, { message: "Chat ID is required" });
   }
 
-  const timestamp = new Date().toLocaleString("id-ID", {
-    timeZone: "Asia/Jakarta",
-    dateStyle: "medium",
-    timeStyle: "short",
-  });
-
-  const message = `
-🎯 *Caption Extracted!*
-
-${escapeMarkdown(caption)}
-
-🔗 [View Post](${url})
-⏰ Time: ${timestamp}
-  `.trim();
+  const message = str(caption)
+    .escape()
+    .when(url.includes("instagram.com"), (s) => s.extractOutermostQuote())
+    .get();
 
   try {
     await sendTelegramMessage(token, chatId, message);
@@ -87,9 +78,5 @@ You will now receive caption notifications here.
     });
   }
 });
-
-function escapeMarkdown(text: string): string {
-  return text.replace(/[_*()~`>#+=|{}]/g, "\\$&");
-}
 
 export default telegram;
