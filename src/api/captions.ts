@@ -38,7 +38,7 @@ captions.post("/", async (c) => {
     return c.json({
       success: true,
       data: { caption: message, telegramSent },
-      message: "Caption extracted successfully",
+      message: "Caption extracted successfully.",
     });
   } catch (error) {
     if (error instanceof Error) {
