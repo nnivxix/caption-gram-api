@@ -12,8 +12,6 @@ export async function sendTelegramMessage(
     },
   );
 
-  console.log("Telegram API response status:", response.status);
-
   if (!response.ok) {
     const data = (await response.json()) as { description?: string };
     throw new Error(
