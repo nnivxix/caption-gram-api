@@ -1,46 +1,8 @@
 import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
 import { sendTelegramMessage } from "../lib/telegram.js";
-import str from "../helpers/str.js";
 
 const telegram = new Hono();
-
-telegram.post("/notify", async (c) => {
-  const { chatId, caption, url } = await c.req.json<{
-    chatId: string;
-    caption: string;
-    url: string;
-  }>();
-
-  const token = process.env.TELEGRAM_BOT_TOKEN;
-
-  if (!token) {
-    throw new HTTPException(500, {
-      message: "Telegram bot token not configured",
-    });
-  }
-
-  if (!chatId) {
-    throw new HTTPException(400, { message: "Chat ID is required" });
-  }
-
-  const message = str(caption)
-    .escape()
-    .when(url.includes("instagram.com"), (s) => s.extractOutermostQuote())
-    .get();
-
-  try {
-    await sendTelegramMessage(token, chatId, message);
-    return c.json({ success: true, message: "Caption sent successfully!" });
-  } catch (error) {
-    throw new HTTPException(500, {
-      message:
-        error instanceof Error
-          ? error.message
-          : "Failed to send Telegram notification",
-    });
-  }
-});
 
 telegram.post("/validate", async (c) => {
   const { chatId } = await c.req.json<{ chatId: string }>();
